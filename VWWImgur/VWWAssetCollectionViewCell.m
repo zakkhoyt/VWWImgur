@@ -8,6 +8,18 @@
 
 #import "VWWAssetCollectionViewCell.h"
 
-@implementation VWWAssetCollectionViewCell
+@interface VWWAssetCollectionViewCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *assetImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *selectedImageView;
+@end
 
+@implementation VWWAssetCollectionViewCell
+-(void)setAssetImage:(UIImage *)assetImage{
+
+    self.assetImageView.image = assetImage;
+}
+-(void)setSelected:(BOOL)selected{
+    super.selected = selected;
+    self.selectedImageView.hidden = !selected;
+}
 @end

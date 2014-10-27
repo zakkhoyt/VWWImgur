@@ -7,25 +7,43 @@
 //
 
 #import "VWWAssetsCollectionViewController.h"
+#import "VWWAssetCollectionViewCell.h"
+
 
 @interface VWWAssetsCollectionViewController ()
-
+@property (nonatomic) CGSize assetThumbnailSize;
+@property (nonatomic, strong) PHCachingImageManager *imageManager;
+@property (nonatomic, strong) NSMutableArray *cachingIndexes;
+@property (nonatomic) CGFloat lastCacheFrameCenter;
 @end
 
 @implementation VWWAssetsCollectionViewController
 
-static NSString * const reuseIdentifier = @"Cell";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.collectionView.allowsMultipleSelection = YES;
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//    // Calculate Thumbnail Size
+//    let scale = UIScreen.mainScreen().scale
+//    let cellSize = (collectionViewLayout as UICollectionViewFlowLayout).itemSize
+//    assetThumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
+//    
+//    collectionView!.reloadData()
+//    updateSelectedItems()
+//    resetCache()
+//    CGFloat scale = [UIScreen mainScreen].scale;
+    self.assetThumbnailSize = CGSizeMake(self.view.bounds.size.width / 3.0, self.view.bounds.size.width / 3.0);
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.imageManager = [[PHCachingImageManager alloc]init];
     
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
+
+    [self.collectionView reloadData];
+    [self updateSelectedItems];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,56 +61,82 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 */
 
-#pragma mark <UICollectionViewDataSource>
+
+#pragma mark Private methods
+
+-(PHAsset*)currentAssetAtIndexPath:(NSIndexPath*)indexPath{
+    if(self.assetsFetchResults){
+        return self.assetsFetchResults[indexPath.item];
+    } else {
+        return self.selectedAssets.assets[indexPath.item];
+    }
+    return nil;
+}
+-(void)updateSelectedItems{
+    if(self.assetsFetchResults){
+        for(PHAsset *asset in self.selectedAssets.assets){
+            NSUInteger index = [self.assetsFetchResults indexOfObject:asset];
+            if(index != NSNotFound){
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }
+        }
+    } else {
+        for(NSUInteger index = 0; index < self.selectedAssets.assets.count; index++){
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+            [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        }
+    }
+}
+#pragma mark UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-#warning Incomplete method implementation -- Return the number of sections
-    return 0;
+    return 1;
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-#warning Incomplete method implementation -- Return the number of items in the section
+    if(self.assetsFetchResults){
+        return self.assetsFetchResults.count;
+    } else {
+        return self.selectedAssets.assets.count;
+    }
     return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell
-    
+    VWWAssetCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VWWAssetCollectionViewCell" forIndexPath:indexPath];
+  
+    PHAsset *asset = [self currentAssetAtIndexPath:indexPath];
+
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc]init];
+    options.networkAccessAllowed = YES;
+    [self.imageManager requestImageForAsset:asset targetSize:self.assetThumbnailSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+        cell.assetImage = result;
+    }];
+
     return cell;
 }
 
-#pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+#pragma mark UICollectionViewFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return self.assetThumbnailSize;
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
+#pragma mark UICollectionViewDelegate
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    PHAsset *asset = [self currentAssetAtIndexPath:indexPath];
+    [self.selectedAssets.assets addObject:asset];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    PHAsset *asset = [self currentAssetAtIndexPath:indexPath];
+    [self.selectedAssets.assets removeObject:asset];
+    if(self.assetsFetchResults == nil){
+        [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    }
 }
-*/
 
 @end

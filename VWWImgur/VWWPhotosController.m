@@ -7,7 +7,40 @@
 //
 
 #import "VWWPhotosController.h"
+#import "VWWBlocks.h"
+
 
 @implementation VWWPhotosController
+
+
+
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        [self authenticateWithCompletionBlock:^{
+            
+        }];
+    }
+    return self;
+}
+
+-(void)authenticateWithCompletionBlock:(VWWEmptyBlock)completionBlock{
+    switch([PHPhotoLibrary authorizationStatus]){
+        case PHAuthorizationStatusRestricted:
+        case PHAuthorizationStatusAuthorized:
+            completionBlock();
+            break;
+        
+        case PHAuthorizationStatusDenied:
+        case PHAuthorizationStatusNotDetermined:
+        default:{
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                completionBlock();
+            }];
+        }
+    }
+    
+}
+
 
 @end

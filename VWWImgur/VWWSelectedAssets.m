@@ -8,6 +8,24 @@
 
 #import "VWWSelectedAssets.h"
 
-@implementation VWWSelectedAssets
+@interface VWWSelectedAssets ()
 
+@end
+
+@implementation VWWSelectedAssets
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.assets = [[NSMutableArray alloc]init];
+    }
+    return self;
+}
+- (instancetype)initWithAsset:(NSArray*)assets{
+    self = [super init];
+    if (self) {
+        self.assets = [[NSMutableArray alloc]initWithArray:assets];
+    }
+    return self;
+}
 @end

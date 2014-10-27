@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VWWPhotosController.h"
+#import "VWWSelectedAssets.h"
 
 @interface VWWAssetsCollectionViewController : UICollectionViewController
-
+@property (nonatomic, strong) PHFetchResult *assetsFetchResults;
+@property (nonatomic, strong) VWWSelectedAssets *selectedAssets;
 @end

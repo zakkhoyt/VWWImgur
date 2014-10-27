@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "VWWPhotosController.h"
+@import Photos;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
 @property (strong, nonatomic) UIWindow *window;
-
-
+@property (nonatomic, strong) VWWPhotosController *photosController;
 @end
 

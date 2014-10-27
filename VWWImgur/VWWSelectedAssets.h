@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface VWWSelectedAssets : NSObject
-
+@property (nonatomic, strong) NSMutableArray *assets;
 @end

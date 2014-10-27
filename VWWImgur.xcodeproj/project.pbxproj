@@ -9,11 +9,19 @@
 /* Begin PBXBuildFile section */
 		CFC87ACF19FEC112006A79F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87ACE19FEC112006A79F4 /* main.m */; };
 		CFC87AD219FEC112006A79F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AD119FEC112006A79F4 /* AppDelegate.m */; };
-		CFC87AD519FEC112006A79F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AD419FEC112006A79F4 /* ViewController.m */; };
 		CFC87AD819FEC112006A79F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFC87AD619FEC112006A79F4 /* Main.storyboard */; };
 		CFC87ADA19FEC112006A79F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFC87AD919FEC112006A79F4 /* Images.xcassets */; };
 		CFC87ADD19FEC112006A79F4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFC87ADB19FEC112006A79F4 /* LaunchScreen.xib */; };
 		CFC87AE919FEC112006A79F4 /* VWWImgurTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AE819FEC112006A79F4 /* VWWImgurTests.m */; };
+		CFC87B0119FEC179006A79F4 /* UIFont+VWW.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AF519FEC179006A79F4 /* UIFont+VWW.m */; };
+		CFC87B0219FEC179006A79F4 /* UIView+VWW.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AF719FEC179006A79F4 /* UIView+VWW.m */; };
+		CFC87B0319FEC179006A79F4 /* VWWUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AFA19FEC179006A79F4 /* VWWUserDefaults.m */; };
+		CFC87B0419FEC179006A79F4 /* VWWUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87AFC19FEC179006A79F4 /* VWWUtilities.m */; };
+		CFC87B0B19FEC1BF006A79F4 /* VWWCollectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87B0A19FEC1BF006A79F4 /* VWWCollectionsViewController.m */; };
+		CFC87B0E19FEC213006A79F4 /* VWWPhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87B0D19FEC213006A79F4 /* VWWPhotosController.m */; };
+		CFC87B1119FEC581006A79F4 /* VWWSelectedAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87B1019FEC581006A79F4 /* VWWSelectedAssets.m */; };
+		CFC87B1419FEC9F5006A79F4 /* VWWAssetsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87B1319FEC9F5006A79F4 /* VWWAssetsCollectionViewController.m */; };
+		CFC87B1719FECB52006A79F4 /* VWWAssetCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC87B1619FECB52006A79F4 /* VWWAssetCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +40,34 @@
 		CFC87ACE19FEC112006A79F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CFC87AD019FEC112006A79F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CFC87AD119FEC112006A79F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CFC87AD319FEC112006A79F4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CFC87AD419FEC112006A79F4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CFC87AD719FEC112006A79F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CFC87AD919FEC112006A79F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CFC87ADC19FEC112006A79F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		CFC87AE219FEC112006A79F4 /* VWWImgurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VWWImgurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFC87AE719FEC112006A79F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CFC87AE819FEC112006A79F4 /* VWWImgurTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VWWImgurTests.m; sourceTree = "<group>"; };
+		CFC87AF419FEC179006A79F4 /* UIFont+VWW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+VWW.h"; sourceTree = "<group>"; };
+		CFC87AF519FEC179006A79F4 /* UIFont+VWW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+VWW.m"; sourceTree = "<group>"; };
+		CFC87AF619FEC179006A79F4 /* UIView+VWW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VWW.h"; sourceTree = "<group>"; };
+		CFC87AF719FEC179006A79F4 /* UIView+VWW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VWW.m"; sourceTree = "<group>"; };
+		CFC87AF919FEC179006A79F4 /* VWWUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWUserDefaults.h; sourceTree = "<group>"; };
+		CFC87AFA19FEC179006A79F4 /* VWWUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWUserDefaults.m; sourceTree = "<group>"; };
+		CFC87AFB19FEC179006A79F4 /* VWWUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWUtilities.h; sourceTree = "<group>"; };
+		CFC87AFC19FEC179006A79F4 /* VWWUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWUtilities.m; sourceTree = "<group>"; };
+		CFC87AFD19FEC179006A79F4 /* VWW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWW.h; sourceTree = "<group>"; };
+		CFC87AFE19FEC179006A79F4 /* VWWBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWBlocks.h; sourceTree = "<group>"; };
+		CFC87AFF19FEC179006A79F4 /* VWWDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWDefines.h; sourceTree = "<group>"; };
+		CFC87B0019FEC179006A79F4 /* VWWTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWTypes.h; sourceTree = "<group>"; };
+		CFC87B0919FEC1BF006A79F4 /* VWWCollectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWCollectionsViewController.h; sourceTree = "<group>"; };
+		CFC87B0A19FEC1BF006A79F4 /* VWWCollectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWCollectionsViewController.m; sourceTree = "<group>"; };
+		CFC87B0C19FEC213006A79F4 /* VWWPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWPhotosController.h; sourceTree = "<group>"; };
+		CFC87B0D19FEC213006A79F4 /* VWWPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWPhotosController.m; sourceTree = "<group>"; };
+		CFC87B0F19FEC581006A79F4 /* VWWSelectedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWSelectedAssets.h; sourceTree = "<group>"; };
+		CFC87B1019FEC581006A79F4 /* VWWSelectedAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWSelectedAssets.m; sourceTree = "<group>"; };
+		CFC87B1219FEC9F5006A79F4 /* VWWAssetsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWAssetsCollectionViewController.h; sourceTree = "<group>"; };
+		CFC87B1319FEC9F5006A79F4 /* VWWAssetsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWAssetsCollectionViewController.m; sourceTree = "<group>"; };
+		CFC87B1519FECB52006A79F4 /* VWWAssetCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VWWAssetCollectionViewCell.h; sourceTree = "<group>"; };
+		CFC87B1619FECB52006A79F4 /* VWWAssetCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VWWAssetCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,14 +109,13 @@
 		CFC87ACB19FEC112006A79F4 /* VWWImgur */ = {
 			isa = PBXGroup;
 			children = (
-				CFC87AD019FEC112006A79F4 /* AppDelegate.h */,
-				CFC87AD119FEC112006A79F4 /* AppDelegate.m */,
-				CFC87AD319FEC112006A79F4 /* ViewController.h */,
-				CFC87AD419FEC112006A79F4 /* ViewController.m */,
-				CFC87AD619FEC112006A79F4 /* Main.storyboard */,
+				CFC87B0619FEC18C006A79F4 /* Controllers */,
 				CFC87AD919FEC112006A79F4 /* Images.xcassets */,
-				CFC87ADB19FEC112006A79F4 /* LaunchScreen.xib */,
 				CFC87ACC19FEC112006A79F4 /* Supporting Files */,
+				CFC87B0519FEC183006A79F4 /* UserInterface */,
+				CFC87AF219FEC179006A79F4 /* VWW */,
+				CFC87B0F19FEC581006A79F4 /* VWWSelectedAssets.h */,
+				CFC87B1019FEC581006A79F4 /* VWWSelectedAssets.m */,
 			);
 			path = VWWImgur;
 			sourceTree = "<group>";
@@ -96,6 +123,8 @@
 		CFC87ACC19FEC112006A79F4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CFC87AD019FEC112006A79F4 /* AppDelegate.h */,
+				CFC87AD119FEC112006A79F4 /* AppDelegate.m */,
 				CFC87ACD19FEC112006A79F4 /* Info.plist */,
 				CFC87ACE19FEC112006A79F4 /* main.m */,
 			);
@@ -117,6 +146,81 @@
 				CFC87AE719FEC112006A79F4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CFC87AF219FEC179006A79F4 /* VWW */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87AF319FEC179006A79F4 /* Categories */,
+				CFC87AF819FEC179006A79F4 /* Utilities */,
+				CFC87AFD19FEC179006A79F4 /* VWW.h */,
+				CFC87AFE19FEC179006A79F4 /* VWWBlocks.h */,
+				CFC87AFF19FEC179006A79F4 /* VWWDefines.h */,
+				CFC87B0019FEC179006A79F4 /* VWWTypes.h */,
+			);
+			path = VWW;
+			sourceTree = "<group>";
+		};
+		CFC87AF319FEC179006A79F4 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87AF419FEC179006A79F4 /* UIFont+VWW.h */,
+				CFC87AF519FEC179006A79F4 /* UIFont+VWW.m */,
+				CFC87AF619FEC179006A79F4 /* UIView+VWW.h */,
+				CFC87AF719FEC179006A79F4 /* UIView+VWW.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		CFC87AF819FEC179006A79F4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87AF919FEC179006A79F4 /* VWWUserDefaults.h */,
+				CFC87AFA19FEC179006A79F4 /* VWWUserDefaults.m */,
+				CFC87AFB19FEC179006A79F4 /* VWWUtilities.h */,
+				CFC87AFC19FEC179006A79F4 /* VWWUtilities.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		CFC87B0519FEC183006A79F4 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87AD619FEC112006A79F4 /* Main.storyboard */,
+				CFC87ADB19FEC112006A79F4 /* LaunchScreen.xib */,
+			);
+			name = UserInterface;
+			sourceTree = "<group>";
+		};
+		CFC87B0619FEC18C006A79F4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87B0819FEC19A006A79F4 /* NonGUI */,
+				CFC87B0719FEC193006A79F4 /* GUI */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CFC87B0719FEC193006A79F4 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87B1219FEC9F5006A79F4 /* VWWAssetsCollectionViewController.h */,
+				CFC87B1319FEC9F5006A79F4 /* VWWAssetsCollectionViewController.m */,
+				CFC87B0919FEC1BF006A79F4 /* VWWCollectionsViewController.h */,
+				CFC87B0A19FEC1BF006A79F4 /* VWWCollectionsViewController.m */,
+				CFC87B1519FECB52006A79F4 /* VWWAssetCollectionViewCell.h */,
+				CFC87B1619FECB52006A79F4 /* VWWAssetCollectionViewCell.m */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		CFC87B0819FEC19A006A79F4 /* NonGUI */ = {
+			isa = PBXGroup;
+			children = (
+				CFC87B0C19FEC213006A79F4 /* VWWPhotosController.h */,
+				CFC87B0D19FEC213006A79F4 /* VWWPhotosController.m */,
+			);
+			name = NonGUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,9 +323,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFC87AD519FEC112006A79F4 /* ViewController.m in Sources */,
+				CFC87B1419FEC9F5006A79F4 /* VWWAssetsCollectionViewController.m in Sources */,
+				CFC87B0319FEC179006A79F4 /* VWWUserDefaults.m in Sources */,
+				CFC87B0219FEC179006A79F4 /* UIView+VWW.m in Sources */,
+				CFC87B0B19FEC1BF006A79F4 /* VWWCollectionsViewController.m in Sources */,
+				CFC87B1119FEC581006A79F4 /* VWWSelectedAssets.m in Sources */,
+				CFC87B0419FEC179006A79F4 /* VWWUtilities.m in Sources */,
 				CFC87AD219FEC112006A79F4 /* AppDelegate.m in Sources */,
+				CFC87B0E19FEC213006A79F4 /* VWWPhotosController.m in Sources */,
 				CFC87ACF19FEC112006A79F4 /* main.m in Sources */,
+				CFC87B1719FECB52006A79F4 /* VWWAssetCollectionViewCell.m in Sources */,
+				CFC87B0119FEC179006A79F4 /* UIFont+VWW.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

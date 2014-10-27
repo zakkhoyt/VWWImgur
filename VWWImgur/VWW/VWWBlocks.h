@@ -13,6 +13,7 @@
 @class CLLocation;
 @class VWWLogFileSummary;
 @class VWWSession;
+@class  UIImage;
 
 typedef void (^VWWA2PDataSetBlock)(VWWAP2DataController* dataSet);
 typedef void (^VWWArrayBlock)(NSArray *array);

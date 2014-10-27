@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VWWAssetCollectionViewCell : UICollectionViewCell
 
+@interface VWWAssetCollectionViewCell : UICollectionViewCell
+@property (nonatomic, strong) UIImage *assetImage;
 @end
