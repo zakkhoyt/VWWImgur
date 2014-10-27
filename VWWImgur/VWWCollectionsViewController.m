@@ -11,6 +11,7 @@
 #import "VWWSelectedAssets.h"
 #import "VWWAssetsCollectionViewController.h"
 #import "VWWCollectionTableViewCell.h"
+#import "VWW.h"
 
 static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
 
@@ -203,6 +204,41 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
     }
     return cell;
     
+}
+
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    // Required to show actions
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    UITableViewRowAction *allRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Enqueue All" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        [self.tableView setEditing:YES animated:YES];
+        VWW_LOG_TODO;
+    }];
+    allRowAction.backgroundColor = [UIColor greenColor];
+
+    UITableViewRowAction *noneRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Dequeue All" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+        [self.tableView setEditing:YES animated:YES];
+        VWW_LOG_TODO;
+    }];
+
+    return @[noneRowAction, allRowAction];
+}
+
+#pragma mark UITableView move stuff
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    VWW_LOG_TRACE;
 }
 
 
