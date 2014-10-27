@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0DF7469E-B4F4-4F35-8BA6-C4B5E6841483</string>
+	<key>IDESourceControlProjectName</key>
+	<string>VWWImgur</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>18E98C47F5520B7596922B89BD094F983CD7FB54</key>
+		<string>github.com:zakkhoyt/VWWImgur.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>VWWImgur.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>18E98C47F5520B7596922B89BD094F983CD7FB54</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:zakkhoyt/VWWImgur.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>18E98C47F5520B7596922B89BD094F983CD7FB54</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>18E98C47F5520B7596922B89BD094F983CD7FB54</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VWWImgur</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -10,5 +10,5 @@
 @import Photos;
 
 @interface VWWPhotosController : NSObject
-
+@property (nonatomic, strong) PHCachingImageManager *imageManager;
 @end

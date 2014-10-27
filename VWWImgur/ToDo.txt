@@ -1,0 +1,23 @@
+------------------------------------------------ 1.0 features
+* Display/Select
+    * Show albums, smart albums, and moments
+    * Select from any of them moves to upload queue
+
+
+
+
+* Upload queue
+    * Persist to disk somehow (Core data?)
+    * Process uploads
+    * Callback status for
+        * All Images
+        * Per Image
+    * Photos are deleted from queue as they are processed
+    * Photos are saved to "Uploaded" as they are processed
+
+
+* Imgur engine
+    * Log in
+    * Persist
+    * get account info
+    * upload

@@ -8,13 +8,15 @@
 
 #import "VWWAssetsCollectionViewController.h"
 #import "VWWAssetCollectionViewCell.h"
-
+#import "AppDelegate.h"
 
 @interface VWWAssetsCollectionViewController ()
 @property (nonatomic) CGSize assetThumbnailSize;
-@property (nonatomic, strong) PHCachingImageManager *imageManager;
+
 @property (nonatomic, strong) NSMutableArray *cachingIndexes;
 @property (nonatomic) CGFloat lastCacheFrameCenter;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *startButton;
 @end
 
 @implementation VWWAssetsCollectionViewController
@@ -22,30 +24,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.collectionView.allowsMultipleSelection = YES;
-
+    self.title = @"Upload Queue";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    // Calculate Thumbnail Size
-//    let scale = UIScreen.mainScreen().scale
-//    let cellSize = (collectionViewLayout as UICollectionViewFlowLayout).itemSize
-//    assetThumbnailSize = CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
-//    
-//    collectionView!.reloadData()
-//    updateSelectedItems()
-//    resetCache()
-//    CGFloat scale = [UIScreen mainScreen].scale;
+    [self.navigationController setNavigationBarHidden:NO];
+    
+    if(self.selectedAssets.assets.count && self.assetsFetchResults == nil){
+        self.navigationItem.rightBarButtonItem = self.startButton;
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    
+    
     self.assetThumbnailSize = CGSizeMake(self.view.bounds.size.width / 3.0, self.view.bounds.size.width / 3.0);
     
-    self.imageManager = [[PHCachingImageManager alloc]init];
+
     
 
     [self.collectionView reloadData];
-    [self updateSelectedItems];
+    [self.collectionView performBatchUpdates:^{
+        
+    } completion:^(BOOL finished) {
+        if(self.assetsFetchResults){
+            if(self.assetsFetchResults.count){
+                [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.assetsFetchResults.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+            }
+        } else {
+            if(self.selectedAssets.assets.count){
+                [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.selectedAssets.assets.count - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+            }
+        }
+        [self updateSelectedItems];
+    }];
+    
+    
+    
 
 }
 
+-(BOOL)prefersStatusBarHidden{
+    return NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -111,7 +132,10 @@
 
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc]init];
     options.networkAccessAllowed = YES;
-    [self.imageManager requestImageForAsset:asset targetSize:self.assetThumbnailSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    VWWPhotosController *photosController = appDelegate.photosController;
+    [photosController.imageManager requestImageForAsset:asset targetSize:self.assetThumbnailSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
         cell.assetImage = result;
     }];
 

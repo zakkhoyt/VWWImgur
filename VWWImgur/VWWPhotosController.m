@@ -18,7 +18,7 @@
     self = [super init];
     if (self) {
         [self authenticateWithCompletionBlock:^{
-            
+            self.imageManager = [[PHCachingImageManager alloc]init];
         }];
     }
     return self;

@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "VWWSelectedAssets.h"
 #import "VWWAssetsCollectionViewController.h"
+#import "VWWCollectionTableViewCell.h"
 
 static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
 
@@ -20,6 +21,7 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
 @property (nonatomic, strong) PHFetchResult * userAlbums;
 @property (nonatomic, strong) PHFetchResult * userFavorites;
 @property (nonatomic, strong) VWWSelectedAssets *selectedAssets;
+@property (nonatomic) CGSize assetThumbnailSize;
 @end
 
 @implementation VWWCollectionsViewController
@@ -28,7 +30,8 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
     [super viewDidLoad];
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     self.photosController = appDelegate.photosController;
-    
+
+    self.assetThumbnailSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height / 4.0);
     self.sectionNames = @[@"", @"", @"Albums"];
     
     self.selectedAssets = [[VWWSelectedAssets alloc]init];
@@ -36,6 +39,17 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
     [self fetchCollections];
     [self.tableView reloadData];
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,37 +120,82 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VWWAssetCollectionTableViewCell" forIndexPath:indexPath];
+    VWWCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VWWCollectionTableViewCell" forIndexPath:indexPath];
     cell.detailTextLabel.text = @"";
+    
+    
+
+    void (^cleanUp)(PHAsset *asset) = ^(PHAsset *asset){
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc]init];
+        options.networkAccessAllowed = YES;
+
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        VWWPhotosController *photosController = appDelegate.photosController;
+        [photosController.imageManager requestImageForAsset:asset targetSize:self.assetThumbnailSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            cell.assetImage = result;
+        }];
+        
+    };
+    
+    cell.groupLabel.text = @"";
+    cell.countLabel.text = @"";
     
     switch(indexPath.section) {
         case 0:{
             // Selected
-            cell.textLabel.text = @"Upload Queue";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", self.selectedAssets.assets.count];
+            cell.groupLabel.text = @"Upload Queue";
+            cell.countLabel.text = [NSString stringWithFormat:@"%lu", self.selectedAssets.assets.count];
+            if(self.selectedAssets.assets.count){
+                cleanUp(self.selectedAssets.assets[self.selectedAssets.assets.count - 1]);
+            }
         }
             break;
         case 1:{
             if(indexPath.row == 0){
                 // All Photos
-                cell.textLabel.text = @"All Photos";
+                cell.groupLabel.text = @"All Photos";
+                PHFetchOptions *options = [[PHFetchOptions alloc]init];
+                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+                PHFetchResult *result = [PHAsset fetchAssetsWithOptions:options];
+                cell.countLabel.text = [NSString stringWithFormat:@"%lu", result.count];
+                [result enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndex:0] options:NSEnumerationConcurrent usingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+                    cleanUp(asset);
+                }];
+
+                
             } else {
                 // Favs
                 PHAssetCollection *favorites = self.userFavorites[indexPath.row - 1];
-                cell.textLabel.text = favorites.localizedTitle;
+                cell.groupLabel.text = favorites.localizedTitle;
                 if(favorites.estimatedAssetCount != NSNotFound){
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", favorites.estimatedAssetCount];
+                    cell.countLabel.text = [NSString stringWithFormat:@"%lu", favorites.estimatedAssetCount];
                 }
+                
+                PHFetchOptions *options = [[PHFetchOptions alloc]init];
+                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+                PHFetchResult *result = [PHAsset fetchAssetsInAssetCollection:self.userFavorites[indexPath.row - 1] options:options];
+                cell.countLabel.text = [NSString stringWithFormat:@"%lu", result.count];
+                [result enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndex:0] options:NSEnumerationConcurrent usingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+                    cleanUp(asset);
+                }];
+                
             }
             break;
         }
         case 2:{
             PHAssetCollection *album = self.userAlbums[indexPath.row];
-            cell.textLabel.text = album.localizedTitle;
+            cell.groupLabel.text = album.localizedTitle;
             if(album.estimatedAssetCount != NSNotFound){
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", album.estimatedAssetCount];
+                cell.countLabel.text = [NSString stringWithFormat:@"%lu", album.estimatedAssetCount];
             }
-            
+
+            PHFetchOptions *options = [[PHFetchOptions alloc]init];
+            options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+            PHFetchResult *result = [PHAsset fetchAssetsInAssetCollection:self.userAlbums[indexPath.row] options:options];
+            [result enumerateObjectsAtIndexes:[NSIndexSet indexSetWithIndex:0] options:NSEnumerationConcurrent usingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+                cleanUp(asset);
+            }];
+
         }
             break;
         default:
@@ -146,7 +205,12 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
     
 }
 
+
+
 #pragma mark UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return self.assetThumbnailSize.height;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
