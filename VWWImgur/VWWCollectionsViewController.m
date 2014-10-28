@@ -217,10 +217,45 @@ static NSString *VWWSegueCollectionsToSelect = @"VWWSegueCollectionsToSelect";
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
     UITableViewRowAction *allRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Enqueue All" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         [self.tableView setEditing:YES animated:YES];
-        VWW_LOG_TODO;
+        
+        PHFetchOptions *options = [[PHFetchOptions alloc]init];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        
+        switch (indexPath.section) {
+            case 0:
+                break;
+            case 1:{
+                if(indexPath.row == 0){
+                    PHFetchResult *results = [PHAsset fetchAssetsWithOptions:options];
+                    [results enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+                        [self.selectedAssets.assets addObject:asset];
+                    }];
+                    [self.tableView reloadData];
+                } else {
+                    PHAssetCollection *favorites = self.userFavorites[indexPath.row - 1];
+                    PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:favorites options:options];
+                    [results enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+                        [self.selectedAssets.assets addObject:asset];
+                    }];
+                    [self.tableView reloadData];
+                }
+            }
+                break;
+            case 2:{
+                PHAssetCollection *album = self.userAlbums[indexPath.row];
+                PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:album options:options];
+                [results enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL *stop) {
+                    [self.selectedAssets.assets addObject:asset];
+                }];
+                [self.tableView reloadData];
+
+            }
+                break;
+            default:
+                break;
+        }
     }];
     allRowAction.backgroundColor = [UIColor greenColor];
 
